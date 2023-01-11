@@ -7,7 +7,7 @@
     "properties": {
         "productId": {
             "type": "integer",
-            "min": 1000
+            "minimum": 1000
         },
         "name": {
             "type": "string"

@@ -44,5 +44,23 @@ describe("POST /", function () {
           status: 400
         }
       });
-  })
+  });
+
+  test("productId too low (below 1000)", async function () {
+    const resp = await request(app).post("/shipments").send({
+      productId: 999,
+      name: "Test Tester",
+      addr: "100 Test St",
+      zip: "12345-6789"
+    });
+
+    expect(resp.body).toEqual({
+      error: {
+        message: [
+          "instance.productId must be greater than or equal to 1000"
+        ],
+        status: 400
+      }
+    });
+  });
 });
