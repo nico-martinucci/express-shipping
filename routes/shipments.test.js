@@ -1,11 +1,15 @@
 "use strict";
 
-const request = require("supertest");
-const app = require("../app");
+const ship = require("../shipItApi"); // why do we have to do this?
+ship.shipProduct = jest.fn();
 
+const app = require("../app");
+const request = require("supertest");
 
 describe("POST /", function () {
   test("valid", async function () {
+    ship.shipProduct.mockReturnValue(23049867);
+    
     const resp = await request(app).post("/shipments").send({
       productId: 1000,
       name: "Test Tester",
@@ -17,6 +21,9 @@ describe("POST /", function () {
   });
 
   test("throws error if empty request body", async function () {
+    // shouldn't need this; incl. in case validation accidentally succeeds
+    ship.shipProduct.mockReturnValue(23049867);
+    
     const resp = await request(app)
       .post("/shipments")
       .send();
@@ -24,6 +31,9 @@ describe("POST /", function () {
   });
 
   test("throws error if data is invalid", async function () {
+    // shouldn't need this; incl. in case validation accidentally succeeds
+    ship.shipProduct.mockReturnValue(23049867);
+    
     const resp = await request(app)
       .post("/shipments")
       .send({
@@ -47,6 +57,9 @@ describe("POST /", function () {
   });
 
   test("productId too low (below 1000)", async function () {
+    // shouldn't need this; incl. in case validation accidentally succeeds
+    ship.shipProduct.mockReturnValue(23049867);
+    
     const resp = await request(app).post("/shipments").send({
       productId: 999,
       name: "Test Tester",

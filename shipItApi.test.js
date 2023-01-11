@@ -10,7 +10,7 @@ const { shipProduct, SHIPIT_SHIP_URL, SHIPIT_API_KEY } = require("./shipItApi");
 
 test("shipProduct", async function () {
 
-  axiosMock.onPost(`${SHIPIT_SHIP_URL}`).reply(200, { receipt: { shipId: 10 } })
+  axiosMock.onPost(`${SHIPIT_SHIP_URL}`).reply(200, { receipt: { shipId: 8675309 } })
   const shipId = await shipProduct({
     productId: 1000,
     name: "Test Tester",
